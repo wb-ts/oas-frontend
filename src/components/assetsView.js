@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate , useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 
@@ -10,9 +10,11 @@ const AssetsView = () => {
 
     const [assets, setAssets] = useState([]);
     const [isLoading , setIsLoading] = useState(false);
+    const [changedLocation , setChangedLocation] = useState(false);
     const collection = useSelector(state => state.Collection.collectionState.currentCollection);
 
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect( async() => {
         if(!collection.name) navigate("/");
@@ -20,10 +22,13 @@ const AssetsView = () => {
 
         let _assets = assets , offset = 0;
         while(true){
-            const result = await axios.get(`http://localhost:8080/getAssets/${collection.slug}/${offset}`).then(res => res.data );
+            const result = await axios.get(`https://oascrape.herokuapp.com/getAssets/${collection.slug}/${offset}`).then(res => res.data );
             offset += 50;
-            _assets = _assets.concat(result);
-            setAssets(_assets);
+            for( let i = 0; i < result.length && !changedLocation ; i ++ ) {
+                const listings = await axios.get(`https://oascrape.herokuapp.com/getListings/${result[i].asset_contract.address}/${result[i].token_id}`).then(res => res.data);
+                _assets = _assets.concat({...result[i] , listings : listings});
+                setAssets(_assets);
+            }
             if(result.length < 50) break;
         }
 
@@ -34,7 +39,7 @@ const AssetsView = () => {
         <div className='container-fluid assets-view'>
             <div className='header pt-3'>
             
-                <h3 className='d-flex align-items-center'><small onClick={() => {navigate("/");}}>&#11178;</small>{collection.name} { isLoading ? <Loader /> : "" }</h3>
+                <h3 className='d-flex align-items-center'><small onClick={() => { setChangedLocation(true); navigate("/");}}>&#11178;</small>{collection.name} { isLoading ? <Loader /> : "" }</h3>
                 <ul className='mt-3'>
                     <li>
                         <div className='asset'></div>
@@ -46,7 +51,6 @@ const AssetsView = () => {
                     </li>
                 </ul>
             </div>
-            {console.log("assets",assets)}
             <div className='d-flex flex-wrap mb-2 assets-list'>
                 {
                 assets.length ?

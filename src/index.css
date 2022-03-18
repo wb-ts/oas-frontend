@@ -49,11 +49,11 @@
 .asset {
   width: 20px;
   height: 20px;
-  background: #414141;
+  background: #1d1d1d;
   border: 1px solid #000;
 }
-.asset.is_presale {
-  background: #1d1d1d !important;
+.asset.listed {
+  background: #414141 !important;
 }
 ul {
   list-style: none;
