@@ -22,10 +22,10 @@ const AssetsView = () => {
 
         let _assets = assets , offset = 0;
         while(true){
-            const result = await axios.get(`https://oascrape.herokuapp.com/getAssets/${collection.slug}/${offset}`).then(res => res.data );
+            const result = await axios.get(`http://localhost:8080/getAssets/${collection.slug}/${offset}`).then(res => res.data );
             offset += 50;
             for( let i = 0; i < result.length && !changedLocation ; i ++ ) {
-                const listings = await axios.get(`https://oascrape.herokuapp.com/getListings/${result[i].asset_contract.address}/${result[i].token_id}`).then(res => res.data);
+                const listings = await axios.get(`http://localhost:8080/getListings/${result[i].asset_contract.address}/${result[i].token_id}`).then(res => res.data);
                 _assets = _assets.concat({...result[i] , listings : listings});
                 setAssets(_assets);
             }
@@ -42,11 +42,11 @@ const AssetsView = () => {
                 <h3 className='d-flex align-items-center'><small onClick={() => { setChangedLocation(true); navigate("/");}}>&#11178;</small>{collection.name} { isLoading ? <Loader /> : "" }</h3>
                 <ul className='mt-3'>
                     <li>
-                        <div className='asset'></div>
+                        <div className='asset listed'></div>
                         <p> Listed</p>
                     </li>
                     <li>
-                        <div className='asset is_presale'></div>
+                        <div className='asset'></div>
                         <p> Unlisted</p>
                     </li>
                 </ul>
