@@ -22,11 +22,11 @@ const AssetsView = () => {
 
         let _assets = assets , offset = 0;
         while(true){
-            const result = await axios.get(`http://localhost:8080/getAssets/${collection.slug}/${offset}`).then(res => res.data );
+            const result = await axios.get(`https://oascrape.herokuapp.com/getAssets/${collection.slug}/${offset}`).then(res => res.data );
             offset += 50;
             for( let i = 0; i < result.length && !changedLocation ; i ++ ) {
-                const listings = await axios.get(`http://localhost:8080/getListings/${result[i].asset_contract.address}/${result[i].token_id}`).then(res => res.data);
-                const transactions = await axios.get(`http://localhost:8080/getTransactions/${result[i].asset_contract.address}/${result[i].token_id}`).then(res => res.data);
+                const listings = await axios.get(`https://oascrape.herokuapp.com/getListings/${result[i].asset_contract.address}/${result[i].token_id}`).then(res => res.data);
+                const transactions = await axios.get(`https://oascrape.herokuapp.com/getTransactions/${result[i].asset_contract.address}/${result[i].token_id}`).then(res => res.data);
                 const sold_status = "" , sale_lastest = 0;
                 for(var j = 0; j < transactions.length ; j++) {
                     const transaction = Number(transactions[j].value);
