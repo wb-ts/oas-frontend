@@ -26,7 +26,30 @@ const AssetsView = () => {
             offset += 50;
             for( let i = 0; i < result.length && !changedLocation ; i ++ ) {
                 const listings = await axios.get(`http://localhost:8080/getListings/${result[i].asset_contract.address}/${result[i].token_id}`).then(res => res.data);
-                _assets = _assets.concat({...result[i] , listings : listings});
+                const transactions = await axios.get(`http://localhost:8080/getTransactions/${result[i].asset_contract.address}/${result[i].token_id}`).then(res => res.data);
+                const sold_status = "" , sale_lastest = 0;
+                for(var j = 0; j < transactions.length ; j++) {
+                    const transaction = Number(transactions[j].value);
+                    console.log(transaction);
+                    if(transaction > 0 ){
+                        if(sale_lastest) {
+                            if (transaction > sale_lastest){
+                                sold_status = "loss";
+                                break;
+                            } 
+                            else if ( transaction < sale_lastest){
+                                sold_status = "benefit";
+                                break;
+                            }
+                            else {
+                                sold_status = "same";
+                                break;
+                            }
+                        }
+                        else sale_lastest = transaction;
+                    } 
+                }
+                _assets = _assets.concat({...result[i] , listings : listings , sold_status : sold_status});
                 setAssets(_assets);
             }
             if(result.length < 50) break;

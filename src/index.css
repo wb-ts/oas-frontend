@@ -51,6 +51,10 @@
   height: 20px;
   background: #1d1d1d;
   border: 1px solid #000;
+  line-height: 15px;
+  text-decoration: none;
+  text-align: center;
+  margin: 0 !important;
 }
 .asset.listed {
   background: #414141 !important;
@@ -101,4 +105,12 @@ ul > li > p {
 .assets-list {
   padding-bottom: 20px;
 }
-
+.benefit {
+  color: green;
+}
+.loss {
+  color: red;
+}
+.same {
+  color: hsla(0, 0%, 100%, 0.22);
+}

@@ -13,7 +13,17 @@ const EachAsset = ({index, asset}) => {
             target="_blank"
         >
             {console.log(asset)}
-            { asset.sell_orders ? <p>3</p> : "" }
+            {asset.sold_status == "loss" ? 
+                <small className='loss'>5</small>
+                :
+                asset.sold_status == "benefit" ? 
+                <small className='benefit'>6</small>
+                :
+                asset.sold_status == "same" ? 
+                <small className='same'>3</small>
+                :
+                <></>
+            }
         </a>
     </>
 }
