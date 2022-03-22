@@ -22,6 +22,7 @@ const AssetsView = () => {
 
 
     const gettingAllAssets = async (offset , _assets) => {
+        if(!collection.slug || unMountValue ) return;
         const result = await axios.get(`${serverUrl}/getAssets/${collection.slug}/${offset}`).then(res => res.data);
         _assets = await gettingMoreForAsset(0, result, _assets);
         if (result.length < 50) return _assets;
