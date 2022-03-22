@@ -6,21 +6,17 @@ const EachAsset = ({index, asset}) => {
     return <>
         <a 
             href={'https://opensea.io/assets/'+ asset.asset_contract.address + '/' + asset.token_id } 
-            className={asset.listings.length ? 'asset listed' : 'asset' } 
-            data-toggle="tooltip" 
-            data-html="true" 
-            title={ index + ". token_id:" + asset.token_id} 
+            className={asset.listings.length ? 'asset listed' : 'asset' }
             target="_blank"
         >
-            {console.log(asset)}
             {asset.sold_status == "loss" ? 
-                <small className='loss'>5</small>
+                <p className='loss'>5</p>
                 :
-                asset.sold_status == "benefit" ? 
-                <small className='benefit'>6</small>
+                asset.sold_status == "profit" ? 
+                <p className='profit'>6</p>
                 :
                 asset.sold_status == "same" ? 
-                <small className='same'>3</small>
+                <p className='same'>3</p>
                 :
                 <></>
             }

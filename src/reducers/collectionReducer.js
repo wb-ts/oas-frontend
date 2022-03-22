@@ -4,7 +4,7 @@ const initState = {
             name : "",
             slug : ""
         },
-        listedCollections : []
+        listedCollections : [],
     },
     scrollPosition : 0
 }

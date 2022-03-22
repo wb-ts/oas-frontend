@@ -18,29 +18,63 @@
   background: black; 
 }
 
+html , body {
+  background-color: #000;
+}
+
+.container {
+  width: 70%;
+}
+
+.collectionsView {
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  margin-bottom: 10px;
+}
+
 .collection {
   cursor: pointer;
-  padding: 20px;
   position: relative;
+  color: white;
+  margin: 10px;
+  padding: 15px 10px;
+  border: 2px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  transition-duration: 0.4s;
 }
 .collection:hover {
-  /* border: 2px outset rgb(105, 103, 103); */
   border-radius: 5px;
-  box-shadow: 1px 1px 3px 3px slategray;
+  box-shadow: 0px 0px 3px 2px rgb(255,255,255,0.6);
+}
+
+.collection p {
+  margin: 0;
+  font-size: 15px;
+  margin-left: 10px;
 }
 
 .collection .image{
   display: flex;
   align-items: center;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
   margin-right: 5px;
-  line-height: 10px;
-  font-size: 14px;
-  color: white;
-  background-color:#525151;
+  border:2px solid #FFF; 
+  position:relative;
+  z-index:10
 }
+.collection .image:before {
+  content:"";
+    display:block;
+    position:absolute;
+    z-index:-1;
+    top:2px;
+    left:2px;
+    right:2px;
+    bottom:2px;
+    border:2px solid #FFF
+}
+
 .assets-view {
   background: black;
   color: white;
@@ -51,7 +85,8 @@
   height: 20px;
   background: #1d1d1d;
   border: 1px solid #000;
-  line-height: 15px;
+  font-size: 12px;
+  line-height: 16px;
   text-decoration: none;
   text-align: center;
   margin: 0 !important;
@@ -84,6 +119,9 @@ ul > li > p {
   }
 }
 .loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   animation: spinKeyframes 500ms infinite linear;
   color: gray;
   width: 20px;
@@ -93,7 +131,6 @@ ul > li > p {
   border: 2px solid #616e7c;
   border-top-color: #cbd2d9;
   border-right-color: #cbd2d9;
-  margin-left: 20px;
   align-items: center;
 }
 /*  */
@@ -105,7 +142,7 @@ ul > li > p {
 .assets-list {
   padding-bottom: 20px;
 }
-.benefit {
+.profit {
   color: green;
 }
 .loss {
@@ -113,4 +150,8 @@ ul > li > p {
 }
 .same {
   color: hsla(0, 0%, 100%, 0.22);
+}
+.back-btn {
+  cursor: pointer;
+  margin-right: 20px;
 }
